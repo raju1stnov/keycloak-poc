@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    # image: quay.io/keycloak/keycloak:22.0.5
+    container_name: keycloak_poc_fastapi   
+    command: start-dev --import-realm    
+    environment:
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
+      - KC_HOSTNAME_URL=http://localhost:8080
+      - KC_HOSTNAME_ADMIN_URL=http://localhost:8080
+      - KC_SPI_THEME_ADMIN=keycloak.v2
+      - KC_HTTP_ENABLED=true 
+      - KC_HOSTNAME_STRICT=false
+    ports:
+      - "8080:8080"     
+    volumes:
+      - keycloak_data_fastapi:/opt/keycloak/data      
+      - ./poc-realm-realm.json:/opt/keycloak/data/import/poc-realm-realm.json:ro
+    networks:
+      - keycloak_poc_net_fastapi
+    healthcheck:      
+      test: ["CMD", "/opt/keycloak/bin/kcadm.sh", "config", "credentials", "--server", "http://localhost:8080", "--realm", "master", "--user", "admin", "--password", "admin"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 240s 
+
+  app1:
+    build: ./app1
+    container_name: app1_poc_fastapi
+    ports:
+      - "8091:8000" # FastAPI app running on port 8000 inside container
+    environment:
+      - OIDC_CLIENT_ID=app1-fastapi-client
+      - OIDC_CLIENT_SECRET=app1-secret
+      - OIDC_ISSUER_URL=http://localhost:8080/realms/poc-realm  # Internal DNS
+      - KEYCLOAK_BROWSER_ISSUER_URL=http://localhost:8080/realms/poc-realm # external
+      - KEYCLOAK_INTERNAL_ISSUER_URL=http://keycloak:8080/realms/poc-realm # For server-to-server discovery
+      - APP_BASE_URL=http://localhost:8091
+      - SESSION_SECRET_KEY=supersecretkeyforapp1session
+    depends_on:
+      keycloak:
+        condition: service_started
+    networks:
+      - keycloak_poc_net_fastapi
+    volumes:
+      - ./app1:/app
+      - ./app1/casbin_model.conf:/app/casbin_model.conf
+      - ./app1/casbin_policy.csv:/app/casbin_policy.csv
+
+  app2:
+    build: ./app2
+    container_name: app2_poc_fastapi
+    ports:
+      - "8092:8000" # FastAPI app running on port 8000 inside container
+    environment:
+      - OIDC_CLIENT_ID=app2-fastapi-client
+      - OIDC_CLIENT_SECRET=app2-secret
+      - OIDC_ISSUER_URL=http://localhost:8080/realms/poc-realm
+      - KEYCLOAK_INTERNAL_ISSUER_URL=http://keycloak:8080/realms/poc-realm # For server-to-server discovery
+      - APP_BASE_URL=http://localhost:8092
+      - SESSION_SECRET_KEY=supersecretkeyforapp2session
+    depends_on:
+      keycloak:
+        condition: service_started
+    networks:
+      - keycloak_poc_net_fastapi
+    volumes:
+      - ./app2:/app # Mount local app2 code for live reload
+
+volumes:
+  keycloak_data_fastapi:
+
+networks:
+  keycloak_poc_net_fastapi:
+    driver: bridge
+    attachable: true

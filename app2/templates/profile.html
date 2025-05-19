@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ app_name }} Profile</title>
+     <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #5a5a5a; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        pre { background-color: #eee; padding: 10px; border-radius: 5px; word-wrap: break-word; white-space: pre-wrap; }
+        .button-home { display: inline-block; padding: 10px 15px; background-color: #28a745; color: white; border-radius: 5px; text-align: center; margin-top: 20px;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ app_name }} - User Profile</h1>
+        {% if user %}
+            <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Preferred Username:</strong> {{ user.preferred_username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Email Verified:</strong> {{ user.email_verified }}</p>
+            
+            <h2>User Info (from token claims):</h2>
+            <pre>{{ user | tojson(indent=4) }}</pre>
+
+            <h2>Access Token:</h2>
+            <pre>{{ token }}</pre>
+        {% else %}
+            <p>No user information available. Please <a href="{{ request.url_for('login') }}">login</a>.</p>
+        {% endif %}
+        <p><a href="{{ request.url_for('homepage') }}" class="button-home">Back to Home</a></p>
+    </div>
+</body>
+</html>

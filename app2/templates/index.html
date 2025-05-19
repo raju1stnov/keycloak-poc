@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ app_name }} Home</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #5a5a5a; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .button { display: inline-block; padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px; text-align: center; }
+        .button-logout { background-color: #dc3545; }
+        .error { color: red; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to {{ app_name }}!</h1>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        {% if user %}
+            <p>Hello, {{ user.name or user.preferred_username }}!</p>
+            <p><a href="{{ request.url_for('profile') }}" class="button">View Profile</a></p>
+            <p><a href="{{ request.url_for('logout') }}" class="button button-logout">Logout</a></p>
+        {% else %}
+            <p>You are not logged in.</p>
+            <p><a href="{{ request.url_for('login') }}" class="button">Login with Keycloak</a></p>
+        {% endif %}
+        <hr>
+        <p>Try accessing <a href="http://localhost:8001" target="_blank">App 1</a> or <a href="http://localhost:8002" target="_blank">App 2</a> to see SSO in action.</p>
+    </div>
+</body>
+</html>

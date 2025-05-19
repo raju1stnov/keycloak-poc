@@ -1,0 +1,257 @@
+h1. Strategic Evolution of Authentication and Authorization Services
+
+*Date:* May 19, 2025
+*Version:* 1.0
+*Author:* Gemini AI Assistant
+*Status:* Proposed Strategy
+
+---
+
+h2. Table of Contents
+(To use Confluence's automatic ToC, you can insert the {toc} macro here)
+
+# Overview
+# Existing System of Auth Flow
+## Current Operation
+## Architecture Diagram
+# Issues with the Existing System
+# Architecture Options Discussed
+## Option 1: Continuing with the Current Approach
+## Option 2: SDK Clients Utilize PingFederate
+## Option 3: Unified Authentication and Authorization with Keycloak
+## Option 4: Unified Authentication with Keycloak and Dedicated Authorization with Casbin (Recommended)
+# Pros and Cons Analysis & Rationale for Recommended Option
+## Analysis of Options
+## Rationale for Recommending Option 4.4
+# Conclusion
+## Summary of Recommendation
+## Anticipated Benefits
+## High-Level Path Forward
+
+---
+
+h2. 1. Overview
+
+This document outlines a strategic evolution for the existing authentication (AuthN) and authorization (AuthZ) architecture. The current landscape, characterized by disparate identity providers and a rudimentary authorization model, presents operational complexities and limitations in security and scalability.
+
+The primary objective of this proposal is to transition towards a unified, robust, and cloud-agnostic framework. This involves recommending a single, industry-standard Identity Provider (IdP) capable of serving all client types (UI, SDK, CLI) and integrating a dedicated authorization engine to enable fine-grained access control.
+
+The recommendations herein aim to:
+
+* *Address existing complexities:* By streamlining the authentication infrastructure.
+* *Enhance security:* By implementing granular access controls and adhering to modern security standards.
+* *Ensure scalability:* By adopting a flexible architecture that can accommodate future growth in users, services, and applications.
+* *Promote cloud agnosticism:* Ensuring components can be deployed across various environments, aligning with the backend services currently on Google Kubernetes Engine (GKE) but designed for broader applicability.
+
+This document will provide a comparative analysis of suitable solutions, detail the proposed integrated system architecture, and offer a clear rationale for the recommended path forward, focusing on Keycloak for authentication and Casbin for authorization.
+
+---
+
+h2. 2. Existing System of Auth Flow
+
+h3. 2.1. Current Operation
+
+The current authentication and authorization mechanisms are bifurcated and employ a basic access control model.
+
+*Authentication:*
+* *UI Clients:* Users interacting through web UIs authenticate via PingFederate, which issues an ID token.
+* *SDK Clients (CLI/Script):* Programmatic clients, such as Command Line Interfaces or scripts, authenticate using the Google SDK, also resulting in an ID token.
+This dual-IdP setup stems from the perception that the existing PingFederate integration necessitates a UI, rendering it unsuitable for non-interactive SDK flows.
+
+*Token Exchange and Session Management:*
+Regardless of the IdP, the client sends its ID token to a `/user` route on the Python FastAPI backend. The backend validates this token and, upon success, generates a custom short-lived (1-hour) "secret token" (JWT). This custom token is then used for all subsequent API calls.
+
+*Authorization:*
+The current authorization model is "pretty basic." Possession of the backend-generated "secret token" grants unrestricted access to all backend API calls (e.g., `create project`, `document search`, `model search`). This coarse-grained approach lacks the ability to enforce differential access rights.
+
+h3. 2.2. Architecture Diagram
+
+The following diagram illustrates the current authentication and authorization flow:
+
+{info}If the diagram below does not render, ensure the "Mermaid Diagrams for Confluence" macro (or similar) is installed and enabled. Alternatively, you can paste the code into an online Mermaid editor to view it.{info}
+{code:mermaid}
+graph TD
+    subgraph Client Layer
+        UI[Web UI Client] -->|1 Authenticate| PING
+        SDK[CLI/SDK Client] -->|1Authenticate| GOOG
+    end
+
+    subgraph Identity Providers
+        PING[[PingFederate]]
+        GOOG[[Google SDK]]
+    end
+
+    subgraph Backend Services
+        BE[FastAPI Backend]
+        KV[Token Store]
+    end
+
+    subgraph Infrastructure
+        GKE[Google Kubernetes Engine]
+    end
+
+    UI -->|2 Present ID Token| BE
+    SDK -->|2 Present ID Token| BE
+    BE -->|3a Validate| PING
+    BE -->|3b Validate| GOOG
+    BE -->|4 Store| KV
+    BE -->|5 Issue| SECRET[Secret Token]
+    BE -.-> GKE
+
+    classDef component fill:#f9f9f9,stroke:#666,stroke-width:2px;
+    classDef cloud fill:#e6f3ff,stroke:#0066cc;
+    classDef idp fill:#ffe6e6,stroke:#cc0000;
+    class UI,SDK,BE,KV,GKE component;
+    class PING,GOOG idp;
+    class GKE cloud;
+{code}
+
+---
+
+h2. 3. Issues with the Existing System
+
+The current dual-IdP system and basic authorization model present several significant challenges that impede scalability, security, and operational efficiency:
+
+# *Operational Complexity:* Managing and maintaining two distinct authentication systems (PingFederate for UI, Google SDK for SDKs) increases administrative overhead, configuration drift potential, and introduces multiple points of failure.
+# *Inconsistent User Experience:* Users undergo different authentication processes depending on the client type (UI vs. SDK), potentially leading to confusion, varying error handling, and a fragmented overall experience.
+# *Limited Granularity in Authorization:* The "all-or-nothing" access model, where a single "secret token" grants universal privileges, is a major security and operational constraint. It cannot support nuanced permission schemes like role-based access control (RBAC) or attribute-based access control (ABAC), preventing differential access rights based on user roles or specific attributes.
+# *Scalability Concerns:* As the number of users, roles, resources, and applications grows, the simplistic authorization model will become increasingly inadequate, unmanageable, and a bottleneck for introducing new features requiring varied access levels.
+# *Security Considerations:*
+** Relying on a single bearer token for all actions post-authentication increases the potential impact if that token is compromised.
+** The introduction of an intermediate custom "secret token" adds another component and token type to manage and secure, and its necessity should be re-evaluated against standard OAuth 2.0 access tokens.
+# *Cloud Agnosticism Alignment:* While backend services run on GKE, the strategic goal is cloud agnosticism for AuthN/AuthZ. The reliance on Google SDK for a primary authentication path introduces a degree of vendor lock-in, potentially complicating future deployments in other cloud environments or on-premise.
+
+---
+
+h2. 4. Architecture Options Discussed
+
+Several architectural options were considered to address the challenges of the current system. Each option presents different trade-offs in terms of complexity, cost, flexibility, and alignment with strategic goals.
+
+h3. 4.1. Option 1: Continuing with the Current Approach
+
+* *Description:* This option involves maintaining the status quo: PingFederate for UI-based authentication and Google SDK for SDK-based interactions, along with the custom "secret token" and basic authorization model.
+* *Issues/Implications:*
+** *Persistent Challenges:* All current limitations (operational complexity, inconsistent UX, limited authorization granularity, scalability issues, security concerns) would remain unaddressed and likely exacerbate over time.
+** *Hindrance to Evolution:* This approach would continue to hinder the development of features requiring more sophisticated access control.
+** *Cloud Agnosticism Not Achieved:* The dependency on Google SDK for programmatic authentication remains a barrier to true cloud-agnostic deployment of authentication services. PingFederate's deployment flexibility would also need to be continually assessed against cloud-agnostic goals.
+** *Increased Technical Debt:* Delaying modernization will accumulate further technical debt, making an eventual overhaul more complex and costly.
+
+h3. 4.2. Option 2: SDK Clients Utilize PingFederate
+
+* *Description:* This option explores consolidating all authentication flows onto the existing PingFederate instance. It would require investigating whether PingFederate can support non-UI based authentication flows (e.g., OAuth 2.0 Device Authorization Grant or Client Credentials Grant) suitable for SDK and CLI clients, thereby eliminating the need for the Google SDK for authentication.
+* *Issues/Implications:*
+** *Feasibility:* Success depends on PingFederate's capabilities, particularly for non-interactive flows. The original rationale for the dual-IdP setup was PingFederate's perceived UI requirement for authentication.
+** *Functionality Gap:* Even if technically feasible, PingFederate might not offer the same ease of use or feature set for device flows or M2M authentication as solutions designed with these use cases as primary.
+** *Cost & Licensing:* Relying further on PingFederate might have licensing cost implications, especially if additional modules or user counts are involved.
+** *Authorization Limitations:* This option, by itself, does not address the need for fine-grained authorization unless PingFederate's own authorization capabilities are deemed sufficient and flexible enough, which often is not the case compared to dedicated engines for complex policies.
+** *Cloud Agnosticism:* PingFederate's suitability for cloud-agnostic deployment (ease of containerization, Kubernetes support, managed service availability across clouds vs. self-hosting complexities) remains a consideration.
+
+h3. 4.3. Option 3: Unified Authentication and Authorization with Keycloak
+
+* *Description:* This option proposes replacing both PingFederate and Google SDK with Keycloak, an open-source Identity and Access Management (IAM) solution. Keycloak would serve as the single, unified IdP for all client types (UI, SDK, CLI) by leveraging appropriate OAuth 2.0 grant types. Keycloak itself offers built-in capabilities for defining roles, permissions, and policies for authorization.
+* *Industries Using Keycloak:* Keycloak is a mature and widely adopted solution across diverse industries, demonstrating its robustness and versatility. Examples include:
+** *Technology and Software:* For customer IAM (CIAM) and internal workforce IAM.
+** *Finance and Insurance:* Securing customer portals and internal applications.
+** *Healthcare:* For patient and staff access to sensitive data, supporting compliance.
+** *Government and Public Sector:* For citizen-facing services and internal systems.
+** *Education:* Managing student and faculty identities.
+** Companies like Bosch, and various governmental and educational institutions leverage Keycloak. Its development is backed by Red Hat.
+* *Issues/Implications:*
+** *Unified AuthN:* Effectively solves the dual-IdP problem and provides standardized authentication.
+** *Built-in AuthZ:* Keycloak's authorization services are powerful but can become complex to manage for very intricate, dynamic, or attribute-rich authorization scenarios. The policy language and model are tied to Keycloak's ecosystem.
+** *Separation of Concerns:* Combining AuthN and very complex AuthZ logic within the IdP might make the IdP a more monolithic component, potentially impacting agility if AuthZ policies change much more frequently or have different lifecycle management needs than core identity data.
+
+h3. 4.4. Option 4: Unified Authentication with Keycloak and Dedicated Authorization with Casbin (Recommended)
+
+* *Description:* This option recommends Keycloak as the single, unified IdP for all authentication needs, similar to Option 4.3. However, for authorization, it proposes integrating Casbin, an open-source authorization library. Casbin would be embedded within the backend FastAPI services (or run as a sidecar/service) to enforce fine-grained access control policies (RBAC, ABAC, etc.) based on policies stored externally (e.g., in a PostgreSQL database). Keycloak-issued access tokens would carry user identity and potentially role/group information, which Casbin would use as input for its policy decisions.
+* *Issues/Implications:*
+** *Optimal Separation:* Provides a clear separation between authentication (handled by Keycloak) and authorization (handled by Casbin). This aligns with microservices best practices where authorization logic can be decentralized or centrally managed but enforced at the service level.
+** *Flexibility in Authorization:* Casbin offers high flexibility in defining custom access control models (ACL, RBAC, ABAC, ReBAC, etc.) and policies, decoupled from the IdP.
+** *Integration Effort:* Requires robust integration: Keycloak issues tokens, backend services validate them, and then Casbin evaluates access based on token claims and its policies.
+** *Component Management:* Involves managing two core components (Keycloak and Casbin with its policy store) instead of one, but this is often a worthwhile trade-off for the gained flexibility and clarity.
+
+---
+
+h2. 5. Pros and Cons Analysis & Rationale for Recommended Option
+
+h3. 5.1. Analysis of Options
+
+||Feature/Aspect||Option 4.1 (Current)||Option 4.2 (PingFederate for SDK)||Option 4.3 (Keycloak for AuthN & AuthZ)||Option 4.4 (Keycloak + Casbin)||
+|Unified Authentication|No (Dual IdP)|Potentially (If Ping supports flows)|Yes|Yes|
+|Fine-Grained AuthZ|No (Basic, all-or-nothing)|Not directly addressed|Yes (Keycloak's engine)|Yes (Dedicated Casbin engine)|
+|Operational Complexity|High|Moderate (if unified) to High|Moderate|Moderate (two components, but clear roles)|
+|Cloud Agnosticism|Low (Google SDK)|Moderate (Depends on PingFederate)|High (Open-source, deploy anywhere)|High (Open-source, deploy anywhere)|
+|Security (Granularity)|Low|Low (if AuthZ not improved)|Moderate to High|High|
+|Scalability (AuthZ)|Low|Low (if AuthZ not improved)|Moderate|High|
+|Cost (Licensing)|Existing Ping + Google (often free)|Potential Ping increase|Low (Open Source)|Low (Open Source)|
+|Flexibility (AuthZ)|Very Low|Very Low|Moderate (Keycloak-specific)|Very High (Casbin models)|
+|Community Support|Ping (Commercial), Google SDK (Good)|Ping (Commercial)|Excellent (Keycloak)|Good (Casbin), Excellent (Keycloak)|
+|Separation of Concerns|Poor|Poor|Moderate|Excellent|
+
+h3. 5.2. Rationale for Recommending Option 4.4 (Keycloak for AuthN, Casbin for AuthZ)
+
+Option 4.4 is recommended as the strategic path forward due to its comprehensive approach to addressing the current system's deficiencies and aligning with future requirements.
+
+*Key Advantages of Option 4.4:*
+
+# *Solves Core Authentication Problems:*
+** *Unified IdP (Keycloak):* Eliminates the complexity and inconsistency of the dual-IdP setup. Keycloak's support for diverse OAuth 2.0 grant types (Authorization Code + PKCE for UI, Device Authorization Grant for CLI/SDK, Client Credentials for M2M) ensures all client types are catered for by a single, standards-based provider.
+** *Cloud-Agnostic & Open Source:* Keycloak is open-source, mitigating vendor lock-in and reducing licensing costs. Its ability to be deployed on-premise, in Docker containers, or on Kubernetes (including GKE) aligns perfectly with the cloud-agnostic requirement.
+** *Robust Security & Features:* Keycloak provides essential security features like MFA, SSO, user federation, and strong community backing.
+
+# *Implements True Fine-Grained Authorization (Casbin):*
+** *Dedicated Authorization Engine:* Casbin allows for the externalization and centralization of authorization logic, decoupling it from application code. This leads to cleaner, more maintainable services.
+** *Flexible Policy Models:* Supports various models like RBAC and ABAC, enabling the definition of nuanced access rules that the current "secret token grants all" system cannot. Policies can be managed and updated dynamically.
+** *Scalable Access Control:* As the application ecosystem grows, Casbin's model allows for easier management and scaling of complex permission schemes.
+
+# *Achieves Clear Separation of Concerns:*
+** Authentication (who the user is) is distinctly handled by Keycloak.
+** Authorization (what the user can do) is distinctly handled by Casbin.
+This separation enhances modularity, testability, and independent evolution of these critical components.
+
+# *Directly Addresses All Major Pain Points:*
+** *Reduces Complexity:* Single IdP.
+** *Consistent User Experience:* Unified login flows.
+** *Enables Granular Control:* Fine-grained policies with Casbin.
+** *Improves Scalability:* Decoupled and specialized components.
+** *Bolsters Security:* Standard protocols, MFA, detailed access checks.
+** *Eliminates Custom Token Issues:* Recommends leveraging standard IdP-issued access tokens, rich with claims, directly for API calls, reducing custom logic.
+
+While this approach introduces Casbin as an additional component to manage alongside Keycloak, the benefits of highly flexible, dedicated fine-grained authorization and clear separation of concerns significantly outweigh the operational overhead of managing one more well-defined service, especially given its open-source nature and robust database adapter/watcher mechanisms for GKE environments. It provides the most comprehensive and future-proof solution.
+
+---
+
+h2. 6. Conclusion
+
+h3. 6.1. Summary of Recommendation
+
+After a thorough analysis of the current authentication and authorization architecture and a review of viable modernization options, this document strongly recommends a strategic shift towards a unified and more sophisticated access control framework. The core recommendations are:
+
+# *Adopt Keycloak as the Unified Identity Provider (IdP):* Replace the existing dual PingFederate and Google SDK authentication mechanisms with a single, self-hosted Keycloak instance. Keycloak will manage all user authentication using standard OAuth 2.0 and OpenID Connect protocols, supporting UI, SDK/CLI, and M2M client types through appropriate grant flows.
+# *Integrate Casbin for Fine-Grained Authorization:* Implement Casbin as the dedicated authorization engine within the backend FastAPI services. Casbin will enforce detailed access control policies (e.g., RBAC, ABAC) based on rules stored in a central policy database (e.g., PostgreSQL) and synchronized across service instances.
+# *Transition to Direct Use of IdP Access Tokens:* Phase out the custom "secret token" in favor of using Keycloak-issued Access Tokens directly for authorizing API calls. These tokens will carry the necessary claims for Casbin to make authorization decisions.
+
+h3. 6.2. Anticipated Benefits
+
+The adoption of this proposed architecture—Keycloak for unified authentication and Casbin for fine-grained authorization—is projected to yield significant advantages:
+
+* *Simplified Authentication Landscape:* Reduces operational complexity, maintenance overhead, and potential points of failure by consolidating to a single IdP.
+* *Enhanced Security:* Moves beyond the current permissive model by implementing robust, fine-grained access control. Leverages the proven security features of Keycloak and OAuth 2.0/OIDC standards.
+* *Improved Scalability and Maintainability:* Cloud-agnostic components and decoupled authorization logic allow the system to scale more effectively. Services become easier to maintain and update independently.
+* *Standards-Compliance and Future-Proofing:* Adherence to open standards ensures interoperability, prevents vendor lock-in, and prepares the system for future technological advancements and evolving business requirements.
+* *Consistent User Experience:* Provides a unified and streamlined authentication experience for all users, irrespective of how they interact with the services.
+
+h3. 6.3. High-Level Path Forward
+
+Successfully transitioning to this new architecture will require a structured and phased implementation. While detailed implementation planning is beyond the scope of this initial strategy document, the high-level path would involve:
+
+# *Team Formation and Detailed Planning:* Establish a dedicated team to lead this initiative, developing a comprehensive project plan with clear timelines, resource allocation, and milestones.
+# *Phased Rollout:*
+** *Phase 1: Unified Authentication with Keycloak:* Deploy Keycloak, migrate UI and SDK clients, and adapt backend services to validate Keycloak tokens.
+** *Phase 2: Casbin Integration for Authorization:* Define policies, set up policy storage, integrate Casbin middleware into pilot services, and then gradually roll out to all services.
+** *Phase 3: Token Flow Optimization:* Transition to using Keycloak-issued access tokens directly, decommissioning the custom "secret token."
+# *Proof of Concept (PoC):* Conduct PoCs for Keycloak with various client flows and for Casbin integration with a representative backend service to validate the approach and identify potential challenges early.
+# *Infrastructure Setup and Configuration:* Prepare the GKE environment (or other target environments) for Keycloak deployment and the Casbin policy database, including considerations for high availability, scaling, and monitoring.
+# *Development, Rigorous Testing, and Documentation:* Allocate resources for application migration, SDK updates, Casbin policy implementation, and comprehensive testing at each phase. Update all relevant technical documentation.
+
+This strategic evolution towards Keycloak and Casbin represents a significant step in modernizing the platform's access control capabilities, laying a resilient and secure foundation for future growth and innovation.

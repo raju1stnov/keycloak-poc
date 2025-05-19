@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ app_name }} Profile</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #5a5a5a; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        pre { background-color: #eee; padding: 10px; border-radius: 5px; word-wrap: break-word; white-space: pre-wrap; max-height: 200px; overflow-y: auto;}
+        .button-home { display: inline-block; padding: 10px 15px; background-color: #28a745; color: white; border-radius: 5px; text-align: center; margin-top: 20px;}
+        .api-data { margin-top: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 5px; }
+        .error-message { color: red; font-weight: bold;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ app_name }} - User Profile</h1>
+        {% if user %}
+            <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Preferred Username:</strong> {{ user.preferred_username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Email Verified:</strong> {{ user.email_verified }}</p>
+            
+            <h2>User Info (from token claims via OIDC userinfo endpoint):</h2>
+            <pre>{{ user | tojson(indent=4) }}</pre>
+
+            <h2>Access Token (first 50 chars):</h2>
+            <pre id="accessTokenPreview">{{ token[:50] if token else "N/A" }}...</pre>
+            <input type="hidden" id="fullAccessToken" value="{{ token }}">
+
+            <div class="api-data">
+                <h2>Data from /api/data (requires Access Token)</h2>
+                <button onclick="fetchApiData()">Fetch Data from API</button>
+                <div id="apiDataResponse">
+                    <p>Click the button to fetch data.</p>
+                </div>
+            </div>
+
+        {% else %}
+            <p>No user information available. Please <a href="{{ request.url_for('login') }}">login</a>.</p>
+        {% endif %}
+        <p><a href="{{ request.url_for('homepage') }}" class="button-home">Back to Home</a></p>
+    </div>
+
+    <script>
+        async function fetchApiData() {
+            const accessToken = document.getElementById('fullAccessToken').value;
+            const apiDataResponseDiv = document.getElementById('apiDataResponse');
+
+            if (!accessToken) {
+                apiDataResponseDiv.innerHTML = '<p class="error-message">Access token not found. Cannot call API.</p>';
+                return;
+            }
+
+            apiDataResponseDiv.innerHTML = '<p>Fetching data...</p>';
+
+            try {
+                // The API is hosted by app1 itself, so relative path /api/data should work.
+                // If API was on different host, use full URL: 'http://localhost:8091/api/data'
+                const response = await fetch('/api/data', { 
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    let html = '<h3>Received Data:</h3>';
+                    if (data.length > 0) {
+                        html += '<ul>';
+                        data.forEach(item => {
+                            html += `<li><strong>ID:</strong> ${item.id}, <strong>Name:</strong> ${item.name}, <strong>Value:</strong> ${item.value}</li>`;
+                        });
+                        html += '</ul>';
+                    } else {
+                        html += '<p>No data returned or you might not have GET permission.</p>';
+                    }
+                    apiDataResponseDiv.innerHTML = html;
+                } else {
+                    let errorText = `Error: ${response.status} ${response.statusText}`;
+                    try {
+                        const errorData = await response.json();
+                        errorText += `<br>Details: ${errorData.detail || JSON.stringify(errorData)}`;
+                    } catch (e) { /* ignore if error response is not json */ }
+                     apiDataResponseDiv.innerHTML = `<p class="error-message">${errorText}</p>`;
+                }
+            } catch (error) {
+                console.error('Error fetching API data:', error);
+                apiDataResponseDiv.innerHTML = `<p class="error-message">An error occurred: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

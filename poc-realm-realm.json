@@ -1,0 +1,179 @@
+{
+  "realm": "poc-realm",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": false,
+  "loginTheme": "keycloak",
+  "accountTheme": "keycloak",
+  "adminTheme": "keycloak",
+  "emailTheme": "keycloak",
+  "clients": [
+    {
+      "clientId": "app1-fastapi-client",
+      "name": "App 1 FastAPI Client",
+      "description": "Client for the first FastAPI application PoC",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "app1-secret",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "fullScopeAllowed": true,
+      "rootUrl": "http://localhost:8091",
+      "baseUrl": "/auth/callback",
+      "redirectUris": [
+        "http://localhost:8091/auth/callback"
+      ],
+      "webOrigins": [
+        "http://localhost:8091"
+      ],
+      "adminUrl": "http://localhost:8091"
+    },
+    {
+      "clientId": "sdk-cli-client",
+      "name": "SDK CLI Client",
+      "description": "Client for the SDK/CLI application using device authorization grant",
+      "enabled": true,
+      "publicClient": true,
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,      
+      "protocol": "openid-connect",      
+      "redirectUris": [], 
+      "webOrigins": [],
+      "attributes": {
+        "oauth2.device.authorization.grant.enabled": "true"
+      },
+      "fullScopeAllowed": true,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false
+    },
+    {
+      "clientId": "app2-fastapi-client",
+      "name": "App 2 FastAPI Client",
+      "description": "Client for the second FastAPI application PoC",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "app2-secret",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "fullScopeAllowed": true,
+      "rootUrl": "http://localhost:8092",
+      "baseUrl": "/auth/callback",
+      "redirectUris": [
+        "http://localhost:8092/auth/callback"
+      ],
+      "webOrigins": [
+        "http://localhost:8092"
+      ],
+      "adminUrl": "http://localhost:8092"
+    }
+  ], 
+  "roles": {
+    "realm": [
+      {
+        "name": "admin_role",
+        "description": "Administrator role with full API access",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "poc-realm"
+      },
+      {
+        "name": "data_readers_role",
+        "description": "Role for reading data via API",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "poc-realm"
+      },
+      { 
+        "name": "offline_access",
+        "description": "${role_offline-access}",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "poc-realm"
+      },
+      {
+        "name": "uma_authorization",
+        "description": "${role_uma_authorization}",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "poc-realm"
+      }
+    ],
+    "client": {}
+  },
+  "users": [
+    {
+      "username": "testuser",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Test",
+      "lastName": "User",
+      "email": "testuser@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [ 
+        "data_readers_role",
+        "offline_access",
+        "uma_authorization"
+      ]
+    },
+    {
+      "username": "adminuser",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "adminuser@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [ 
+        "admin_role",
+        "offline_access",
+        "uma_authorization"
+      ]
+    },
+    {
+      "username": "nouser",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "No",
+      "lastName": "Permissions",
+      "email": "nouser@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [ 
+        "offline_access",
+        "uma_authorization"
+      ]
+    }
+  ],
+  "defaultRoles": [ 
+      "offline_access",
+      "uma_authorization"
+  ]
+}

@@ -1,0 +1,252 @@
+<mxfile host="Electron" modified="2025-05-19T16:58:15.548Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.8 Chrome/114.0.5735.289 Electron/25.5.0 Safari/537.36" etag="aFAVAFEZad7G1zNXzFlZ" version="21.6.8" type="device">
+  <diagram name="Page-1" id="rtvwR_iBVjGUZBS0KTQ_">
+    <mxGraphModel dx="2868" dy="1672" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-1" value="(App1 Local Resources)" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="2766" y="1461" width="362" height="358" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-2" value="Casbin Policy/Model Files &#xa; (casbin_policy.csv, casbin_model.conf)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2801" y="1615" width="292" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-3" value="Identity Provider" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="4587" height="116" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-4" value="Keycloak Server &#xa; (localhost:8080 for Browser, &#xa; keycloak:8080 for App1 Backend)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="3056" y="45" width="253" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-5" value="Application Services" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="402" y="407" width="2931" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-6" value="App 1 (localhost:8091) &#xa; [OIDC Client, API Resource Server, Casbin AuthZ]" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="953" y="432" width="363" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-7" value="App 2 (localhost:8092) &#xa; [OIDC Client]" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2821" y="432" width="177" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-8" value="User Interaction Flow" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1009" y="221" width="2911" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-9" value="User (Web Browser)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2362" y="247" width="156" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-10" value="App1: Validate Access Token &#xa; (KeycloakTokenValidator)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="3246" y="592" width="218" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-11" value="App1: Token Validated" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="3250" y="775" width="210" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-12" value="App1: Perform Casbin Authorization" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="3202" y="1070" width="306" height="306" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-13" value="App1: Casbin Authorization Decision" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="3699" y="1486" width="308" height="308" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-14" value="App1: Serve API Data" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="3890" y="1946" width="201" height="201" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-15" value="App1: Serve HTTP 403 Forbidden" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="4166" y="1904" width="285" height="285" as="geometry" />
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-16" value="1 Accesses App1, Clicks Login" style="curved=1;startArrow=none;endArrow=block;exitX=-0.0015900440705128205;exitY=0.5682672761024028;entryX=0.0013289858815426997;entryY=0.20030727122495365;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-9" target="eGFHwwrLAOVExTp0FlDH-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1264" y="306" />
+              <mxPoint x="530" y="357" />
+              <mxPoint x="530" y="407" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-17" value="2 User Agent redirected to Keycloak &#xa; (via App1&#39;s /login, using public authorize_url from server_metadata)" style="curved=1;startArrow=none;endArrow=block;exitX=0.7547725120523416;exitY=0;entryX=-0.0015900440705128205;entryY=0.606603749047504;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-6" target="eGFHwwrLAOVExTp0FlDH-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1319" y="407" />
+              <mxPoint x="1319" y="357" />
+              <mxPoint x="1636" y="306" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-18" value="3 User authenticates with Credentials at Keycloak UI" style="curved=1;startArrow=none;endArrow=block;exitX=0.9986603565705128;exitY=0.4185115826859524;entryX=0.9997761240118577;entryY=0.6547092685323544;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-9" target="eGFHwwrLAOVExTp0FlDH-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3900" y="221" />
+              <mxPoint x="3900" y="136" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-19" value="4 Keycloak redirects User Agent to App1&#39;s /auth/callback &#xa; with Authorization Code" style="curved=1;startArrow=none;endArrow=block;exitX=0.0012892168972332015;exitY=0.5520229398798747;entryX=-0.0015900440705128205;entryY=0.4151720807972665;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-4" target="eGFHwwrLAOVExTp0FlDH-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1049" y="136" />
+              <mxPoint x="1049" y="221" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-20" value="5 App1 (backend) exchanges Authorization Code for Tokens &#xa; (direct POST to Keycloak&#39;s internal token_endpoint from server_metadata)" style="curved=1;startArrow=none;endArrow=block;exitX=1.0005111484159779;exitY=0.09675850328318802;entryX=0.0012892168972332015;entryY=0.5450914680488277;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-6" target="eGFHwwrLAOVExTp0FlDH-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1585" y="407" />
+              <mxPoint x="1585" y="357" />
+              <mxPoint x="721" y="306" />
+              <mxPoint x="721" y="136" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-21" value="5a ID Token, Access Token, Refresh Token" style="curved=1;startArrow=none;endArrow=block;exitX=0.0012892168972332015;exitY=0.5362483485898093;entryX=0.0013289858815426997;entryY=0.12259580210382523;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-4" target="eGFHwwrLAOVExTp0FlDH-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="136" />
+              <mxPoint x="120" y="306" />
+              <mxPoint x="654" y="357" />
+              <mxPoint x="654" y="407" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-22" value="6 Tokens validated (incl. ID Token &#39;iss&#39; vs public issuer from server_metadata), &#xa; User info stored in session, User Agent redirected to /profile" style="curved=1;startArrow=none;endArrow=block;exitX=1.0005111484159779;exitY=0.2713770756593851;entryX=-0.0015900440705128205;entryY=0.6758819981930294;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-6" target="eGFHwwrLAOVExTp0FlDH-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1928" y="407" />
+              <mxPoint x="1928" y="306" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-23" value="7 On App1&#39;s /profile page, JavaScript calls &#xa; App1&#39;s /api/data endpoint (e.g., GET) &#xa; (includes Access Token from session as Bearer token)" style="curved=1;startArrow=none;endArrow=block;exitX=-0.0015900440705128205;exitY=0.5796521917275721;entryX=0.12787319214876033;entryY=0;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-9" target="eGFHwwrLAOVExTp0FlDH-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1406" y="306" />
+              <mxPoint x="864" y="357" />
+              <mxPoint x="864" y="407" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-24" value="8 App1&#39;s /api/data endpoint receives request. &#xa; Triggers &#39;get_current_api_user&#39; dependency." style="curved=1;startArrow=none;endArrow=block;exitX=0.5009200671487604;exitY=1;entryX=0.00035837155963302754;entryY=0.4338161123197938;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-6" target="eGFHwwrLAOVExTp0FlDH-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1135" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-25" value="9 Fetch JWKS from Keycloak to verify token signature &#xa; (backend call to internal jwks_uri specified in KeycloakTokenValidator, &#xa; which internally discovers it from Keycloak&#39;s internal .well-known)" style="curved=1;startArrow=none;endArrow=block;exitX=0.9988890481651376;exitY=0.18312560811750017;entryX=0.9997761240118577;entryY=0.5832633193873722;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-10" target="eGFHwwrLAOVExTp0FlDH-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3819" y="550" />
+              <mxPoint x="3819" y="357" />
+              <mxPoint x="4516" y="306" />
+              <mxPoint x="4516" y="136" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-26" value="9a JWKS (Public Keys)" style="curved=1;startArrow=none;endArrow=block;exitX=0.9997761240118577;exitY=0.592182291128292;entryX=0.6885751146788991;entryY=0;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-4" target="eGFHwwrLAOVExTp0FlDH-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="4387" y="136" />
+              <mxPoint x="4387" y="306" />
+              <mxPoint x="3466" y="357" />
+              <mxPoint x="3466" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-27" value="10 Verify Access Token: &#xa; - Signature (using JWKS) &#xa; - Issuer (vs public OIDC_ISSUER_URL) &#xa; - Audience (vs configured allowed_audiences + client_id) &#xa; - Expiry" style="curved=1;startArrow=none;endArrow=block;exitX=0.4996237098623853;exitY=1;entryX=0.499609375;entryY=0;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-10" target="eGFHwwrLAOVExTp0FlDH-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-28" value="11 If valid, extract user info (e.g., preferred_username) &#xa; and roles (e.g., realm_access.roles) from token claims" style="curved=1;startArrow=none;endArrow=block;exitX=0.499609375;exitY=0.9977306547619048;entryX=0.49973192401960786;entryY=-0.0015573937908496733;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-11" target="eGFHwwrLAOVExTp0FlDH-12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-29" value="12 Load Casbin Model &amp;amp; Policy &#xa; (from local casbin_model.conf &amp;amp; casbin_policy.csv)" style="curved=1;startArrow=none;endArrow=block;exitX=-0.00030637254901960784;exitY=0.7383380736618465;entryX=0.5011237157534246;entryY=-0.00609375;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-12" target="eGFHwwrLAOVExTp0FlDH-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2947" y="1418" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-30" value="13 Enforce Casbin policy &#xa; e.g., enforcer.enforce(username, &#39;/api/data&#39;, &#39;GET&#39;)" style="curved=1;startArrow=none;endArrow=block;exitX=0.9997702205882353;exitY=0.6948113240457527;entryX=0.4995814732142857;entryY=-0.001471185064935065;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-12" target="eGFHwwrLAOVExTp0FlDH-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3853" y="1418" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-31" value="14a If Authorized (policy allows): &#xa; Proceed to API logic, access/prepare data" style="curved=1;startArrow=none;endArrow=block;exitX=0.4995814732142857;exitY=0.9994926948051948;entryX=0.12732244245756677;entryY=0.00025264303482587064;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-13" target="eGFHwwrLAOVExTp0FlDH-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3853" y="1861" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-32" value="15a Sends HTTP 200 OK with data &#xa; back to JavaScript on /profile page" style="curved=1;startArrow=none;endArrow=block;exitX=0.7742000298940138;exitY=0.00025264303482587064;entryX=0.9986603565705128;entryY=0.5742329785812885;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-14" target="eGFHwwrLAOVExTp0FlDH-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="4093" y="1861" />
+              <mxPoint x="4093" y="357" />
+              <mxPoint x="3536" y="306" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-33" value="14b If Denied (policy disallows): &#xa; Prepare error response" style="curved=1;startArrow=none;endArrow=block;exitX=1.0000634131493507;exitY=0.7369789443200981;entryX=0.28697827019661193;entryY=-0.0005482456140350877;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-13" target="eGFHwwrLAOVExTp0FlDH-15">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="4230" y="1819" />
+              <mxPoint x="4230" y="1861" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-34" value="15b Sends HTTP 403 Forbidden &#xa; back to JavaScript on /profile page" style="curved=1;startArrow=none;endArrow=block;exitX=0.682814084916237;exitY=-0.0005482456140350877;entryX=0.9986603565705128;entryY=0.5631280635822198;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-15" target="eGFHwwrLAOVExTp0FlDH-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="4376" y="1861" />
+              <mxPoint x="4376" y="357" />
+              <mxPoint x="3693" y="306" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-35" value="A Accesses App2, Clicks Login &#xa; (Demonstrates SSO if already authenticated with Keycloak)" style="curved=1;startArrow=none;endArrow=block;exitX=0.49853515625;exitY=0.9852941176470589;entryX=0.0011255296610169492;entryY=0.3115787242707711;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-9" target="eGFHwwrLAOVExTp0FlDH-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2440" y="407" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-36" value="B User Agent redirected to Keycloak (if not already SSO&#39;d)" style="curved=1;startArrow=none;endArrow=block;exitX=0.4170032221045198;exitY=0;entryX=0.9986603565705128;entryY=0.7068932975093039;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-7" target="eGFHwwrLAOVExTp0FlDH-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2880" y="407" />
+              <mxPoint x="2880" y="306" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-37" value="C Keycloak redirects User Agent to App2&#39;s /auth/callback &#xa; with Authorization Code" style="curved=1;startArrow=none;endArrow=block;exitX=0.0012892168972332015;exitY=0.664999802925431;entryX=0.6783929286858986;entryY=-0.014705882352941176;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-4" target="eGFHwwrLAOVExTp0FlDH-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2510" y="136" />
+              <mxPoint x="2510" y="221" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-38" value="D App2 (backend) exchanges Auth Code for Tokens" style="curved=1;startArrow=none;endArrow=block;exitX=1.0017434675141244;exitY=0.10460106916429027;entryX=0.9997761240118577;entryY=0.6183653149354391;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-7" target="eGFHwwrLAOVExTp0FlDH-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3134" y="407" />
+              <mxPoint x="3134" y="357" />
+              <mxPoint x="4120" y="306" />
+              <mxPoint x="4120" y="136" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eGFHwwrLAOVExTp0FlDH-39" value="E App2 serves content/profile" style="curved=1;startArrow=none;endArrow=block;exitX=1.0017434675141244;exitY=0.24767234134912428;entryX=0.9986603565705128;entryY=0.6407632884677693;rounded=0;" edge="1" parent="1" source="eGFHwwrLAOVExTp0FlDH-7" target="eGFHwwrLAOVExTp0FlDH-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3261" y="407" />
+              <mxPoint x="3261" y="357" />
+              <mxPoint x="3067" y="306" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

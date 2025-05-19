@@ -1,0 +1,5 @@
+p, admin_role, /api/data, GET
+p, admin_role, /api/data, POST
+p, testuser, /api/data, GET
+g, testuser, data_readers_role
+p, data_readers_role, /api/data, GET
