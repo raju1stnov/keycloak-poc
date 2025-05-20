@@ -1,0 +1,228 @@
+<mxfile host="Electron" modified="2025-05-20T11:23:04.808Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.8 Chrome/114.0.5735.289 Electron/25.5.0 Safari/537.36" etag="L8BIuSyaViF3-ISkRCgj" version="21.6.8" type="device">
+  <diagram name="Page-1" id="nTkqRbdjVFBv-OsXbYoc">
+    <mxGraphModel dx="2578" dy="2098" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="zb1zer_nNFZvvufptOPh-92" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="-110" y="-510" width="1950" height="1300" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-33" value="Infrastructure" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="380" y="330" width="399" height="122" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-34" value="Kubernetes Cluster" style="whiteSpace=wrap;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="400" y="379" width="152" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-35" value="Policy Database" style="shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=10;strokeWidth=2;whiteSpace=wrap;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" vertex="1" parent="1">
+          <mxGeometry x="603" y="360" width="127" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-36" value="Backend Services" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="670" y="-40" width="610" height="212" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-37" value="API Gateway" style="whiteSpace=wrap;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="972" y="-15" width="107" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-38" value="Microservices" style="whiteSpace=wrap;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="793" y="113" width="112" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-39" value="Authorization Layer" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="140" y="-50" width="463" height="247" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-90" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;startArrow=classic;startFill=1;endArrow=none;endFill=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-40" target="zb1zer_nNFZvvufptOPh-37">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="2" />
+              <mxPoint x="540" y="20" />
+              <mxPoint x="733" y="20" />
+              <mxPoint x="733" y="19" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-91" value="5 Check Permissions" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zb1zer_nNFZvvufptOPh-90">
+          <mxGeometry x="-0.1518" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-40" value="Casbin Engine" style="strokeWidth=2;shape=process;whiteSpace=wrap;size=0.04;fillColor=#60a917;strokeColor=#2D7600;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="364" y="-15" width="130" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-41" value="Policy Storage" style="whiteSpace=wrap;strokeWidth=2;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" vertex="1" parent="1">
+          <mxGeometry x="290" y="138" width="116" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-42" value="Policy Admin" style="whiteSpace=wrap;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="208" y="-15" width="106" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-43" value="Authentication Layer" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="-340" width="220" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-44" value="Keycloak IdP" style="strokeWidth=2;shape=process;whiteSpace=wrap;size=0.04;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1370" y="-305" width="121" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-45" value="Clients" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="670" y="-390" width="630" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-65" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-46" target="zb1zer_nNFZvvufptOPh-37">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="740" y="-425" as="sourcePoint" />
+            <mxPoint x="922" y="-69.5" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="790" y="-350" />
+              <mxPoint x="680" y="-350" />
+              <mxPoint x="680" y="8" />
+              <mxPoint x="972" y="8" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-66" value="3 API Request" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zb1zer_nNFZvvufptOPh-65">
+          <mxGeometry x="-0.0012" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-67" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-46" target="zb1zer_nNFZvvufptOPh-44">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="845" y="-297" />
+              <mxPoint x="1135" y="-297" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-68" value="1 Auth Code Flow" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zb1zer_nNFZvvufptOPh-67">
+          <mxGeometry x="-0.5483" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;endArrow=none;endFill=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-46" target="zb1zer_nNFZvvufptOPh-44">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-73" value="2 JWT Access Token" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zb1zer_nNFZvvufptOPh-71">
+          <mxGeometry x="0.0722" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-46" value="Web Browser" style="whiteSpace=wrap;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="790" y="-365" width="109" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-75" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;endArrow=none;endFill=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-47">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1370" y="-280" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="900" y="-280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-76" value="2 JWT Access Token" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zb1zer_nNFZvvufptOPh-75">
+          <mxGeometry x="-0.7774" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-47" target="zb1zer_nNFZvvufptOPh-37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-80" value="3 API Request" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zb1zer_nNFZvvufptOPh-79">
+          <mxGeometry x="-0.2187" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-86" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-47" target="zb1zer_nNFZvvufptOPh-44">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="950" y="-270" />
+              <mxPoint x="1370" y="-270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-87" value="1 Device Flow" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zb1zer_nNFZvvufptOPh-86">
+          <mxGeometry x="-0.8543" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-47" value="Command Line" style="whiteSpace=wrap;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="851" y="-200" width="121" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-48" target="zb1zer_nNFZvvufptOPh-37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-82" value="3 API Request" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zb1zer_nNFZvvufptOPh-81">
+          <mxGeometry x="-0.176" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-88" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.31;entryY=0.982;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-48" target="zb1zer_nNFZvvufptOPh-44">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1123" y="-240" />
+              <mxPoint x="1408" y="-240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-89" value="1 Client Credentials" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zb1zer_nNFZvvufptOPh-88">
+          <mxGeometry x="-0.4112" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-48" value="Application SDK" style="whiteSpace=wrap;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1058.5" y="-200" width="129" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-60" value="6 Load Policies" style="curved=1;startArrow=none;endArrow=block;exitX=0.7728361807463369;exitY=1;entryX=1.0036368534482758;entryY=0.07486324114230189;rounded=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-40" target="zb1zer_nNFZvvufptOPh-41">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="517" y="44" />
+              <mxPoint x="517" y="113" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-61" value="7 Persist" style="curved=1;startArrow=none;endArrow=block;exitX=0.503838900862069;exitY=1;entryX=0.4995693897637795;entryY=0;rounded=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-41" target="zb1zer_nNFZvvufptOPh-35">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-62" value="Manage Policies" style="curved=1;startArrow=none;endArrow=block;exitX=0.9066694042003591;exitY=1;entryX=0.5716081691297206;entryY=0;rounded=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-42" target="zb1zer_nNFZvvufptOPh-41">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="368" y="44" />
+              <mxPoint x="368" y="113" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-63" value="Cache" style="curved=1;startArrow=none;endArrow=block;exitX=0.001532451923076923;exitY=1;entryX=0.227255233990148;entryY=0;rounded=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-40" target="zb1zer_nNFZvvufptOPh-41">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="269" y="44" />
+              <mxPoint x="269" y="113" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-64" value="8. Forward Request" style="curved=1;startArrow=none;endArrow=block;exitX=0.0028475467289719625;exitY=0.9597945124402121;entryX=0.5025111607142857;entryY=0;rounded=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-37" target="zb1zer_nNFZvvufptOPh-38">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="849" y="54" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-77" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.165;exitY=-0.08;exitDx=0;exitDy=0;exitPerimeter=0;startArrow=classic;startFill=1;endArrow=none;endFill=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-48">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1380" y="-270" as="targetPoint" />
+            <mxPoint x="922" y="-190" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="1080" y="-260" />
+              <mxPoint x="1380" y="-260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-78" value="2 JWT Access Token" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zb1zer_nNFZvvufptOPh-77">
+          <mxGeometry x="-0.7774" y="3" relative="1" as="geometry">
+            <mxPoint x="-18" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-83" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.165;entryY=1.029;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="zb1zer_nNFZvvufptOPh-37" target="zb1zer_nNFZvvufptOPh-44">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zb1zer_nNFZvvufptOPh-84" value="4 Validate JWT" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zb1zer_nNFZvvufptOPh-83">
+          <mxGeometry x="0.4944" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

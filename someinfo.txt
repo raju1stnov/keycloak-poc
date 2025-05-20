@@ -255,3 +255,145 @@ Successfully transitioning to this new architecture will require a structured an
 # *Development, Rigorous Testing, and Documentation:* Allocate resources for application migration, SDK updates, Casbin policy implementation, and comprehensive testing at each phase. Update all relevant technical documentation.
 
 This strategic evolution towards Keycloak and Casbin represents a significant step in modernizing the platform's access control capabilities, laying a resilient and secure foundation for future growth and innovation.
+
+
+
+
+
+
+
+
+Explanation for Team 2a Diagram (GenAI Access):
+
+This diagram shows a multi-step process:
+
+This workflow involves three main phases:
+
+GenAI User Request Flow: The end-user requests access to a specific GenAI model.
+AI Gov Approval Flow: The AI Governance team reviews and approves/denies the request.
+GenAI User Usage Flow (Post-Approval): The end-user utilizes the GenAI model after access is granted.
+Phase 1: GenAI User Request Flow
+This phase describes how a GenAI User initiates a request for access to a particular GenAI model.
+
+GENAI_USER[GenAI User via UI]: This represents the end-user interacting with your system, likely through a web user interface.
+KEYCLOAK_T2A[Keycloak IdP]: The central Identity Provider.
+APIGW_T2A[API Gateway/FastAPI Backend]: Your backend application that handles the logic.
+CASBIN_T2A[Casbin Engine (in Backend)]: The authorization engine within your backend.
+POLICY_STORE_T2A[(Casbin Policy Store)]: Where Casbin's authorization rules are stored.
+ACCESS_REQUEST_DB[(Access Request Records)]: A database or table to log and track access requests.
+Steps:
+
+1a. Auth (gets GenAIUser role):
+
+The GenAI User (from GENAI_USER) initiates an authentication process with KEYCLOAK_T2A. This could be by clicking a "Login" button, which redirects them to Keycloak's login page.
+The user provides their credentials to Keycloak.
+Upon successful authentication, Keycloak determines the user's roles. For this flow, we assume the user is assigned or has a role like GenAIUser.
+KEYCLOAK_T2A then issues a JSON Web Token (JWT) back to the GENAI_USER's client (e.g., browser). This JWT contains claims about the user, including their unique identifier (sub claim) and their roles (e.g., roles: ["GenAIUser"]).
+2a. Request Access to 'gemini_pro' (POST /genai/requests):
+
+The authenticated GenAI User, now possessing the JWT, navigates to a part of the UI where they can request access to a specific GenAI model (e.g., 'gemini_pro').
+The UI makes an API call – typically a POST request – to an endpoint on your APIGW_T2A (e.g., /genai/requests). This request includes the JWT in the Authorization header and details of the request (e.g., which model they want access to, possibly a justification).
+3a. Validate JWT, Extract Claims:
+
+Your APIGW_T2A receives the API request.
+The first step is to validate the incoming JWT. This involves checking its signature against Keycloak's public keys, verifying the issuer, audience, and ensuring it hasn't expired.
+If the JWT is valid, the backend extracts necessary claims from it, such as the user's ID (user_id) and their roles (e.g., GenAIUser). These claims are then available for the CASBIN_T2A engine.
+4a. Enforce(user_id, 'genai_models', 'request_access'):
+
+The backend now needs to determine if this specific user is authorized to request access to GenAI models in general.
+It calls the CASBIN_T2A engine's enforce method. The parameters might look like: enforce(subject, object, action).
+subject: The user_id extracted from the JWT.
+object: A representation of the resource being acted upon, e.g., 'genai_models' (as a category) or potentially the specific model 'gemini_pro'.
+action: The attempted action, which is 'request_access'.
+CASBIN_T2A loads the relevant policies from the POLICY_STORE_T2A and evaluates if there's a rule allowing this subject to perform this action on this object. For example, a policy might be p, role:GenAIUser, genai_models, request_access, allow.
+5a. If Allow, Create Request:
+
+Casbin's enforce method returns true (Allow) or false (Deny).
+If Casbin allows the action (true), the APIGW_T2A proceeds with the business logic.
+This involves creating a new record in the ACCESS_REQUEST_DB. This record would store details like who requested access, to which model, when the request was made, and its current status (e.g., "pending").
+The API then returns a success response to the GENAI_USER. If denied, an error response (e.g., 403 Forbidden) is returned.
+Phase 2: AI Gov Approval Flow
+This phase describes how a member of the AI Gov Team reviews and processes the pending access request.
+
+AI_GOV[AI Gov Team Member via Admin UI]: Represents a user from the AI Governance team, likely using a separate admin interface.
+Steps:
+
+1b. Auth (gets AIGovTeamMember role):
+
+Similar to the GenAI User, the AI Gov Team Member (from AI_GOV) authenticates with KEYCLOAK_T2A, likely through an admin portal.
+Upon successful authentication, Keycloak issues a JWT to this user, containing their identity and role, e.g., AIGovTeamMember.
+2b. Approve Request for 'user_id' & 'gemini_pro' (POST /genai/requests/{id}/approve):
+
+The authenticated AI Gov Team Member views pending access requests in their admin UI (requests fetched from ACCESS_REQUEST_DB).
+To approve a specific request (e.g., for user_id to access gemini_pro), they trigger an action in the UI.
+The UI makes an API call to the APIGW_T2A, perhaps a POST to an endpoint like /genai/requests/{request_id}/approve. This request includes the AI Gov member's JWT.
+3b. Validate JWT, Extract Claims:
+
+The APIGW_T2A receives this approval request.
+It validates the AI Gov member's JWT and extracts their aigov_user_id and roles (e.g., AIGovTeamMember).
+4b. Enforce(aigov_user_id, 'genai_access_requests', 'approve'):
+
+The backend checks if this AI Gov member is authorized to approve access requests.
+It calls CASBIN_T2A: enforce(aigov_user_id, 'genai_access_requests', 'approve').
+CASBIN_T2A checks policies in POLICY_STORE_T2A. A policy like p, role:AIGovTeamMember, genai_access_requests, approve, allow would permit this.
+5b. If Allow, Update Policy Store: Add: p, user_id, genai_model:gemini_pro, use_model:
+
+If Casbin allows the approval (true):
+Crucially, the APIGW_T2A now interacts with the POLICY_STORE_T2A (via Casbin's management APIs or directly if using an adapter that allows it) to add a new authorization rule.
+This new rule explicitly grants the original requesting user (user_id) permission to use the specific model. The policy would look something like: p, <original_user_id>, genai_model:gemini_pro, use_model, allow.
+This dynamically updates the authorization rules, so Casbin will know this user is now allowed to use gemini_pro.
+6b. Update Request Status:
+
+The APIGW_T2A updates the status of the original request in the ACCESS_REQUEST_DB to "approved".
+A success response is sent back to the AI_GOV member's UI. The original GENAI_USER might also be notified.
+Phase 3: GenAI User Usage Flow (Post-Approval)
+This phase describes how the GenAI User, having been granted access, now uses the GenAI model.
+
+GENAI_MODELS[External GenAI Models (OpenAI, Gemini)]: Represents the actual third-party GenAI services.
+Steps:
+
+1c. Use 'gemini_pro' (POST /genai/invoke/gemini_pro):
+
+The GENAI_USER (who previously authenticated and whose request was approved) now attempts to use the gemini_pro model through your system's UI.
+The UI makes an API call to your APIGW_T2A, for example, POST /genai/invoke/gemini_pro, sending a payload with the prompt for the model. The user's original JWT (still valid or refreshed) is included.
+2c. Validate JWT, Extract Claims:
+
+The APIGW_T2A receives the request.
+It validates the GENAI_USER's JWT and extracts their user_id.
+3c. Enforce(user_id, 'genai_model:gemini_pro', 'use_model'):
+
+The backend now checks if this specific user is authorized to use this specific model.
+It calls CASBIN_T2A: enforce(user_id, 'genai_model:gemini_pro', 'use_model').
+CASBIN_T2A checks its POLICY_STORE_T2A. Because of step 5b, the policy p, <user_id>, genai_model:gemini_pro, use_model, allow now exists.
+4c. If Allow, Proxy/Call:
+
+Casbin returns true because the specific permission was granted during the approval step.
+The APIGW_T2A now proceeds to interact with the actual external GENAI_MODELS service (e.g., makes an API call to the Gemini API endpoint with the user's prompt).
+The response from the external GenAI model is then relayed back to the GENAI_USER via your API. If Casbin had denied access, an error (e.g., 403 Forbidden) would be returned.
+
+
+
+
+
+Explanation for Team 2b Diagram (Document Search):
+
+A Document User authenticates with Keycloak.
+Keycloak issues a JWT (e.g., with DocumentUser role).
+The client makes an API request to search documents, including the JWT.
+The backend validates the JWT.
+Claims are passed to Casbin.
+Casbin loads policies.
+Casbin enforces the policy (e.g., "Can DocumentUser search_documents in document_collections?"). This could also be more granular, like enforce(user_Y, 'collection_contracts', 'search_documents') if using ABAC.
+If allowed, the backend queries the Vector DB.
+Results are returned to the client.
+
+Explanation for Team 1 Diagram:
+
+An ML Developer (Client) authenticates with Keycloak.
+Keycloak issues a JWT containing user identity and roles (e.g., MLDeveloper).
+The client makes an API request (e.g., to create a model) to the backend, including the JWT.
+The backend validates the JWT with Keycloak.
+Relevant claims are extracted and passed to the Casbin engine.
+Casbin loads relevant policies from its store.
+Casbin enforces the policy (e.g., "Can MLDeveloper create 'models'?").
+If allowed, the backend proceeds to interact with the appropriate MLOps resource (Model Registry or Pipeline Service).

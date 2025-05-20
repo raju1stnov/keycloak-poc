@@ -1,0 +1,247 @@
+<mxfile host="Electron" modified="2025-05-20T15:23:28.646Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.8 Chrome/114.0.5735.289 Electron/25.5.0 Safari/537.36" etag="Ow5CcRv_Pwonkts9j_lN" version="21.6.8" type="device">
+  <diagram name="Page-1" id="3JMhX09Rjedc4WTwttok">
+    <mxGraphModel dx="2963" dy="2810" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-66" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="20" y="-220" width="2530" height="1290" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-1" value="GenAI Resources" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="260" y="490" width="481" height="129" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-2" value="External GenAI Models&#xa;(OpenAI, Gemini)" style="whiteSpace=wrap;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="295" y="529" width="176" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-3" value="Access Request Records" style="shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=10;strokeWidth=2;whiteSpace=wrap;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" vertex="1" parent="1">
+          <mxGeometry x="521" y="515" width="185" height="79" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-4" value="API Layer  Backend" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="780" y="350" width="1170" height="426" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-5" target="kr47oyb5iEC-DqLdqyzy-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1290" y="551" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-44" value="3a. Validate JWT, Extract Claims" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-43">
+          <mxGeometry x="-0.5307" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.855;entryY=0;entryDx=0;entryDy=2.9;entryPerimeter=0;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-5" target="kr47oyb5iEC-DqLdqyzy-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1270" y="460" />
+              <mxPoint x="679" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-48" value="5a. If Allow, Create Request" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-47">
+          <mxGeometry x="0.2197" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-5" target="kr47oyb5iEC-DqLdqyzy-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1330" y="470" />
+              <mxPoint x="1467" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-50" value="3b. Validate JWT, Extract Claims" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-49">
+          <mxGeometry x="-0.1775" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.855;entryY=0;entryDx=0;entryDy=2.9;entryPerimeter=0;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-5" target="kr47oyb5iEC-DqLdqyzy-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-55" value="5b. If Allow, Update Policy Store:&lt;br style=&quot;border-color: var(--border-color); padding: 0px; margin: 0px;&quot;&gt;Add: p, user_id, genai_model:gemini_pro, use_model" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-54">
+          <mxGeometry x="0.0695" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-56" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-5" target="kr47oyb5iEC-DqLdqyzy-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1294" y="480" />
+              <mxPoint x="942" y="480" />
+              <mxPoint x="942" y="555" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-57" value="6b. Update Request Status" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-56">
+          <mxGeometry x="-0.2317" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-5" target="kr47oyb5iEC-DqLdqyzy-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1580" y="430" />
+              <mxPoint x="1580" y="563" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-61" value="2c. Validate JWT, Extract Claims" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-60">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-5" target="kr47oyb5iEC-DqLdqyzy-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="383" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-65" value="4c. If Allow, Proxy/Call" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-64">
+          <mxGeometry x="-0.1912" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-5" value="API Gateway/FastAPI Backend" style="whiteSpace=wrap;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1178" y="400" width="232" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=0;entryDy=51.25;entryPerimeter=0;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-6" target="kr47oyb5iEC-DqLdqyzy-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1300" y="563" />
+              <mxPoint x="1300" y="721" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-46" value="4a. Enforce(user_id, &#39;genai_models&#39;, &#39;request_access&#39;)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-45">
+          <mxGeometry x="-0.2369" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-6" target="kr47oyb5iEC-DqLdqyzy-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1920" y="570" />
+              <mxPoint x="1920" y="708" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-63" value="3c. Enforce(user_id, &#39;genai_model:gemini_pro&#39;, &#39;use_model&#39;)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-62">
+          <mxGeometry x="0.3906" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-6" value="Casbin Engine&#xa;(in Backend)" style="whiteSpace=wrap;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="538" width="114" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-7" value="Casbin Policy Store" style="shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=10;strokeWidth=2;whiteSpace=wrap;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" vertex="1" parent="1">
+          <mxGeometry x="1610" y="670" width="151" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-8" value="Authentication Keycloak" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="570" y="148" width="160" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-9" value="Keycloak IdP" style="whiteSpace=wrap;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="590" y="173" width="105" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-10" value="Client Layer" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="887" y="60" width="750" height="197" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-11" target="kr47oyb5iEC-DqLdqyzy-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="647" y="90" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-32" value="1a. Auth (gets GenAIUser role)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-31">
+          <mxGeometry x="-0.1333" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.854;entryY=0.06;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=classic;startFill=1;endArrow=none;endFill=0;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-11" target="kr47oyb5iEC-DqLdqyzy-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="684" y="110" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-34" value="JWT" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-33">
+          <mxGeometry x="0.2077" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-11" target="kr47oyb5iEC-DqLdqyzy-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1080" y="257" />
+              <mxPoint x="1080" y="417" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-40" value="2a. Request Access to &#39;gemini_pro&#39;&lt;br style=&quot;border-color: var(--border-color); padding: 0px; margin: 0px;&quot;&gt;(POST /genai/requests)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-39">
+          <mxGeometry x="-0.1111" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-11" target="kr47oyb5iEC-DqLdqyzy-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1540" y="97" />
+              <mxPoint x="1540" y="409" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-59" value="1c. Use &#39;gemini_pro&#39;&lt;br style=&quot;border-color: var(--border-color); padding: 0px; margin: 0px;&quot;&gt;(POST /genai/invoke/gemini_pro)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-58">
+          <mxGeometry x="0.0555" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-11" value="GenAI User via UI" style="whiteSpace=wrap;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="80" width="139" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-12" target="kr47oyb5iEC-DqLdqyzy-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1286" y="150" />
+              <mxPoint x="760" y="150" />
+              <mxPoint x="760" y="182" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-36" value="1b. Auth (gets AIGovTeamMember role)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-35">
+          <mxGeometry x="-0.3109" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-12" target="kr47oyb5iEC-DqLdqyzy-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-42" value="2b. Approve Request for &#39;user_id&#39; &amp;amp; &#39;gemini_pro&#39;&lt;br style=&quot;border-color: var(--border-color); padding: 0px; margin: 0px;&quot;&gt;(POST /genai/requests/{id}/approve)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-41">
+          <mxGeometry x="-0.1766" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-12" value="AI Gov Team Member via Admin UI" style="whiteSpace=wrap;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1156" y="198" width="260" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-23" value="4b. Enforce(aigov_user_id, &#39;genai_access_requests&#39;, &#39;approve&#39;)" style="curved=1;startArrow=none;endArrow=block;exitX=0.5042489035087719;exitY=1.007801513671875;entryX=0.0025481167218543046;entryY=0.32805830618802095;rounded=0;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-6" target="kr47oyb5iEC-DqLdqyzy-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1527" y="633" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.403;entryY=0.011;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="kr47oyb5iEC-DqLdqyzy-9" target="kr47oyb5iEC-DqLdqyzy-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kr47oyb5iEC-DqLdqyzy-38" value="JWT" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="kr47oyb5iEC-DqLdqyzy-37">
+          <mxGeometry x="-0.0533" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
